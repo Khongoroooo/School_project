@@ -8,5 +8,6 @@ class Angilal (models.Model):
 class Baraa (models.Model):
     bname = models.CharField(max_length=200)
     angilal = models.ForeignKey(Angilal,on_delete=models.CASCADE)
+    price = models.PositiveBigIntegerField(default=0)
     def __str__(self):
-        return f"{self.bname}({self.angilal})"
+        return f"{self.bname}({self.angilal})({self.price})"

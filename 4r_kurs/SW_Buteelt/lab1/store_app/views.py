@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from .forms import BaraaForm
 
-# Create your views here.
+def show_baraa_form(request):
+    form = BaraaForm()
+    return render (request, 'baraa.html', {'form':form})
