@@ -7,16 +7,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('store_app', '0001_initial'),
+        ("store_app", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Baraa',
+            name="Baraa",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('bname', models.CharField(max_length=200)),
-                ('angilal', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='store_app.angilal')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("bname", models.CharField(max_length=200)),
+                (
+                    "angilal",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="store_app.angilal",
+                    ),
+                ),
             ],
         ),
     ]
