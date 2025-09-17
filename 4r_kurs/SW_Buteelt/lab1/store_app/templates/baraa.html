@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baraa</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #e6e6e6;
+        text-align: left;
+      }
+      th {
+        background: #f7f7f7;
+      }
+      img {
+        max-width: 80px;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Барааны жагсаалт</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Зураг</th>
+          <th>Ангилал</th>
+          <th>Нэр</th>
+          <th>Тайлбар</th>
+          <th>Үнэ</th>
+          <th>Нөөц</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in baraa %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            {% if i.images %}
+            <img src="{{ i.images.url }}" alt="{{ i.bname }}" />
+            {% else %} Зураггүй {% endif %}
+          </td>
+          <td>{{ i.angilal.aname }}</td>
+          <td>{{ i.bname }}</td>
+          <td>{{ i.description }}</td>
+          <td>{{ i.price }}₮</td>
+          <td>{{ i.stock }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">Бараа олдсонгүй</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

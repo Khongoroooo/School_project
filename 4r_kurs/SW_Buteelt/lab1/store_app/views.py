@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Baraa, Angilal
 
 
 def show_baraa_form(request):
@@ -45,5 +46,6 @@ def show_store(request):
     return render(request, "store.html")
 
 
-def show(request):
-    pass
+def show_baraa(request):
+    baraa = Baraa.objects.all()
+    return render (request, 'baraa.html', {'baraa':baraa})
