@@ -7,7 +7,9 @@ def show_baraa_form(request):
 
 
 def index(request):
-    return render(request, "index.html")
+    baraa = Baraa.objects.all()
+    category = Angilal.objects.all()
+    return render(request, "index.html", {'baraa': baraa, 'category': category})
 
 
 def show_cart(request):
@@ -49,3 +51,7 @@ def show_store(request):
 def show_baraa(request):
     baraa = Baraa.objects.all()
     return render (request, 'baraa.html', {'baraa':baraa})
+
+# def show_category(request):
+#     category = Angilal.objects.all()
+#     return render (request, 'base.html', {'category': category})
