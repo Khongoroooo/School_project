@@ -27,3 +27,5 @@ class Baraa(models.Model):
         return f"{self.bname}({self.angilal})({self.price})"
 
 
+print(Angilal._meta.db_table)
+print(Baraa._meta.db_table)

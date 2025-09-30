@@ -1,15 +1,42 @@
 from django.shortcuts import render
 from .models import Baraa, Angilal
+import sqlite3 as sql
 
+
+def show_store(request):
+    baraa = Baraa.objects.all()
+    category = Angilal.objects.all()
+    return render(request, "store.html", {'products': baraa, 'categories': category})
 
 def show_baraa_form(request):
     return render(request, "baraa.html")
 
 
 def index(request):
-    baraa = Baraa.objects.all()
-    category = Angilal.objects.all()
-    return render(request, "index.html", {'baraa': baraa, 'category': category})
+    with sql.connect('db.sqlite3') as con:
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        cur.execute('''
+            SELECT *
+            FROM store_app_baraa
+            WHERE is_available=TRUE
+            ORDER BY id DESC
+            LIMIT 8ё
+        ''')
+        products = cur.fetchall()
+        cur.execute('SELECT * FROM store_app_angilal')
+        categories = cur.fetchall()
+        products_count = len(products)
+
+    context = {
+        "products": products,
+        "categories": categories,
+        "products_count": products_count
+    }
+
+
+    return render(request, "index.html", context)
+
 
 
 def show_cart(request):
@@ -44,8 +71,7 @@ def show_signin(request):
     return render(request, "signin.html")
 
 
-def show_store(request):
-    return render(request, "store.html")
+
 
 
 def show_baraa(request):
