@@ -14,6 +14,12 @@ def show_baraa_form(request):
 
 
 def index(request):
+    limit = request.GET.get("limit", 8)
+    try:
+        limit = int(limit)
+    except ValueError:
+        limit = 8
+
     with sql.connect('db.sqlite3') as con:
         con.row_factory = sql.Row
         cur = con.cursor()
@@ -22,8 +28,8 @@ def index(request):
             FROM store_app_baraa
             WHERE is_available=TRUE
             ORDER BY id DESC
-            LIMIT 8
-        ''')
+            LIMIT ?
+        ''', (limit,))
         products = cur.fetchall()
         cur.execute('SELECT * FROM store_app_angilal')
         categories = cur.fetchall()

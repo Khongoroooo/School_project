@@ -17,7 +17,19 @@
       <a href="{% url 'store' %}" class="btn btn-outline-primary float-right"
         >See all</a
       >
-      <h3 class="section-title">{{products_count}} Сүүлд нэмэгдсэн бараа</h3>
+
+      <form method="get" action="">
+        <input
+          type="number"
+          name="limit"
+          placeholder="Барааны тоо бичнэ үү"
+          min="1"
+          class="form-control d-inline w-auto"
+          value="{{request.GET.limit}}"
+        />
+        <button type="submit" class="btn btn-primary">Харах</button>
+      </form>
+      <h3 class="section-title">Сүүлд нэмэгдсэн бараа {{products_count}}</h3>
     </header>
 
     <div class="row">
@@ -35,7 +47,7 @@
             <a href="{% url 'product-detail' %}" class="title">
               {{ i.bname }}
             </a>
-            <div class="price mt-1">${{ i.price }}</div>
+            <div class="price mt-1">{{ i.price }}₮</div>
           </figcaption>
         </div>
       </div>
