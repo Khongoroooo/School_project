@@ -13,5 +13,7 @@ urlpatterns = [
     path("signin/", views.show_signin, name="signin"),
     path("store/", views.show_store, name="store"),
     path("", views.index, name="index"),
+    path("category/<slug:slug>/", views.show_category_products, name='category_products'),
+
 
 ]

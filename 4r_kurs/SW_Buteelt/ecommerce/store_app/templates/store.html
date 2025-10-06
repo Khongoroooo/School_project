@@ -30,8 +30,14 @@
             <div class="filter-content collapse show" id="collapse_1">
               <div class="card-body">
                 <ul class="list-menu">
-                  {% for i in categories %}
-                  <li>{{i.aname}}</li>
+                  {% for i in links %}
+                  <li>
+                    <a
+                      class="list-menu"
+                      href="{% url 'category_products' i.slug %}"
+                      >{{i.aname}}</a
+                    >
+                  </li>
                   {% endfor %}
                 </ul>
               </div>

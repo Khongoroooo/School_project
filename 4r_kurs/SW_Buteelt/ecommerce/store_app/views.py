@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
 from .models import Baraa, Angilal
 import sqlite3 as sql
 
@@ -21,14 +22,14 @@ def index(request):
             FROM store_app_baraa
             WHERE is_available=TRUE
             ORDER BY id DESC
-            LIMIT 8ё
+            LIMIT 8
         ''')
         products = cur.fetchall()
         cur.execute('SELECT * FROM store_app_angilal')
         categories = cur.fetchall()
         products_count = len(products)
 
-    context = {
+    context = { 
         "products": products,
         "categories": categories,
         "products_count": products_count
@@ -70,14 +71,23 @@ def show_search(request):
 def show_signin(request):
     return render(request, "signin.html")
 
-
-
-
-
 def show_baraa(request):
     baraa = Baraa.objects.all()
     return render (request, 'baraa.html', {'baraa':baraa})
 
-# def show_category(request):
-#     category = Angilal.objects.all()
-#     return render (request, 'base.html', {'category': category})
+def show_category_products(request, slug):
+    # try:
+    #     category = Angilal.objects.all(id = id)
+    # except:
+    #     raise Http404("Category not found")
+    category = get_object_or_404(Angilal, slug = slug)
+    products = Baraa.objects.filter(angilal=category, is_available = True)
+    categories = Angilal.objects.all()
+    context = {
+        'category': category,
+        'products': products,
+        'categories': categories,
+        'product_count': products.count()
+    }
+    return render (request,'store.html', context)
+
